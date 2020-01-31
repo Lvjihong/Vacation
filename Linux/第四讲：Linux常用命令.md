@@ -233,11 +233,137 @@ umask 022这个数是算出来的，下面解释
 777 rwx rwx rwx
 755 rwx  r-x   r-x***这才是实际的权限数，采用的，也不知道叫啥的逻辑关系***
    rw-   r--    r--这是文件的  
-
-
 # 文件搜索命令  
+## 文件搜索命令find  
+### find  
+命令名称：find  
+命令所在路径：/bin/find  
+执行权限：所有用户  
+功能描述：文件搜索  
+语法：find 索范围 匹配条件  
+1. find /etc -name init  
+- 在目录/etc中搜索名称为init的文件  
+- 如果想模糊搜索只要带init，在init前后各家一个通配符星号  
+- 以init开头的就是在init后加星号，***星号匹配任意字符，问号匹配单个字符***  
+- -iname代表不区分大小写  
+2. find / -size +204800  
+- 在根目录下查找大于100MB的文件  
+- +n大于 -n小于 n等于  
+- 单位是数据块，一个数据块为512字节 0.5k  
+3. find /home user shenchao  
+- 在目录/home里寻找所有者为shenchao的文件  
+- -group根据所属组查找  
+4. find /etc -cmin -5  
+- 在/etc下查找5分钟内被修改过的文件和目录  
+- -amin 代表访问时间access  
+- -cinm 代表文件属性change  
+- -mmin 代表文件内容modify  
+5. find /etc -size +163840 -a -size -2047800  
+- 在/etc目录下查找大于80MB小于100MB的文件  
+- -a 表示两个文件同时满足  
+- -o 表示两个条件满足任意一个即可（-a 和 -o可以用来搭配前四条任意查找）  
+6. find /etc -name inittab -exec ls -l {} \;  
+- 在/etc目录下找到名字叫inittab 的文件并显示其详细信息  
+- -exec 和-ok 命令 {} \;对搜索结果执行操作（-ok会增加一步询问的）   
+7. find /etc -type d  
+- 在/etc 目录下查找文件类型为目录的  
+- f为文件 d为目录 l为软链接  
+8. find /etc -inum 6572  
+- 在/etc目录下搜索i节点为6572的文件  
+## 其他文件搜索命令  
+### locate  
+命令名称：locate  
+命令所在路径：/usr/bin/locate  
+执行权限：所有用户  
+功能描述：在文件资料库里查找文件  
+语法：locate 文件名  
+这个命令不是实时的，资料库会定期更新，也可以用updatedb手动更新  
+临时文件找不到/tmp文件夹里的东西  
+locate -i 文件名：不区分大小写  
+### which  
+命令名称：which  
+命令所在路径：/usr/bin/which  
+执行权限：所有用户  
+语法：which 命令名称  
+功能描述：搜索命令所在目录及别名信息  
+### whereis  
+命令名称：whereis  
+命令所在路径：/usr/bin/whereis  
+执行权限：所有用户  
+功能描述：搜索命令所在目录及帮助文档路径  
+语法：whereis 命令名称  
+### grep  
+命令名称：grep  
+命令所在路径：/bin/grep  
+执行权限：所有用户  
+语法：grep -iv 指定字串 文件  
+功能描述：再文件中搜寻字字串匹配的行并输出  
+        -i 不区分大小写  
+        -v 排除指定字串 -v ^#    排除以#开头的行
 # 帮助命令  
+1对应是命令的帮助  
+5对用的配置文件的帮助  
+### man  
+命令名称：man  
+命令英文原意：manual  
+命令所在路径：/usr/bin/man  
+执行权限：所有用户  
+功能描述：获取帮助信息  
+语法：man命令或配置文件（空格翻页，回车换行，q退出，直接输入/加选项可以定位，n切换定位）  
+例:  
+1. man ls  
+查看ls命令的帮助信息  
+2. man services  
+查看配置文件services的帮助信息  
+3. man /etc/services  
+显示文件内容  
+   查时间改时间man date  
+### whatis 命令：基本功能  
+### apropos 配置文件：基本内容  
+### 命令 --help：找到命令选项  
+### info和man差不多  
+### help  
+命令名称：help  
+命令所在路径：Shell内置命令  
+执行权限：所有用户  
+功能描述：获得Shell内置命令的帮助信息（Shell是命令解释器，Shell内置命令找不到命令路径）  
+语法：help 命令  
 # 用户管理命令  
+### useradd  
+命令名称：useradd  
+命令所在路径：/usr/sbin/useradd  
+执行权限：root  
+功能描述：添加新用户  
+语法：useradd 用户名  
+### passwd  
+命令名称：passwd  
+命令所在路径:/usr/bin/passwd  
+执行权限：所有用户  
+功能描述：设置用户密码  
+语法：passwd 用户名  
+### who  
+命令名称：who  
+命令所在路径：/usr/bin/who  
+执行权限：所有用户  
+功能描述：查看登录用户信息  
+语法：who  
+第一部分：用户名  
+第二部分：登录终端tty本地登录；pts远程终端  
+第三部分：登陆时间  
+第四部分：终端IP地址，不显示的话就是本地登录  
+### w  
+命令名称：w  
+命令所在路径：/usr/bin/w  
+执行权限：所有用户  
+语法：w  
+功能描述：查看登录用户详细信息  
+当前系统时间  
+up连续登录时间  
+共有几个用户登录  
+负载情况  
+IDLE：空闲时间  
+PCPU:当前占用CPU时间  
+WHAT:进行了什么命令  
 # 压缩解压命令  
 # 网络命令  
 # 关机重启命令  
