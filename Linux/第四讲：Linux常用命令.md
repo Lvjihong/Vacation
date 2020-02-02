@@ -433,7 +433,89 @@ WHAT:进行了什么命令
 选项-k保留原文件  
 还可以和tar混合使用：tar xjf zhugedali.tar.bz2  
 # 网络命令  
-
+### write  
+命令名称：write  
+命令所在路径：/usr/bin/write  
+执行权限：所有用户  
+功能描述：给用户发信息  
+语法：write 用户名，Ctri+D保存结束，***只能给在线用户发送***  
+### wall  
+指令名称：wall  
+命令英文原意：write all  
+指令所在路径：/usr/bin/wall  
+执行权限：所有用户  
+功能描述：发送广播信息  
+语法：wall 信息内容***所有在线用户包括自己都可以收到***  
+### ping  
+命令名称：ping  
+命令所在路径：/bin/ping  
+执行权限：所有用户  
+功能描述：测试网络连通性  
+语法：ping 选项 IP地址，Ctrl+C结束，否则一直ping,time越短网络越好，packet loss（丢包率）越高，网络越差  
+         -c 指定发送次数  
+### ifconfig  
+命令名称：ifconfig  
+命令英文原意：interface configure  
+命令所在路径：/sbin/ifconfig  
+执行权限：root  
+功能：查看和设置网卡信息  
+语法：ifconfig 网卡名称 IP地址，查看不用加后边的直接ifconfig，etho本地网卡物理地址  
+***临时配置***
+### mail  
+命令名称：mail  
+命令所在路径：/bin/mail  
+执行权限：所有用户  
+功能：查看和发送电子邮件  
+语法：mail 用户名，Ctrl+D结束发送。  
+     查看就直接mail，N表示未读，想读直接输入邮件号，h回到收件箱，d+邮件号删除邮件，q退出当前模式
+### last  
+命令名称：last  
+命令所在路径：/usr/bin/last  
+执行权限：所有用户  
+功能描述：列出目前与过去登入系统的用户信息  
+语法：last，里边显示各种信息  
+### lastlog  
+命令名称：last  
+命令所在路径：/usr/bin/lastlog  
+执行权限：所有用户  
+功能描述：检查某特定用户上次登陆时间  
+语法：#lastlog  
+	# lastlog -u 502(用户UID)
+### traceroute  
+命令名称：traceroute  
+命令所在路径：/bin/traceroute  
+执行权限：所有用户  
+功能描述：显示数据包到主机间的路径，一步步找，通过这个功能能看到底哪个访问网络出问题  
+语法：traceroute 网址  
+### netstat  
+命令名称：netstat  
+命令所在路径：/bin/netstat  
+执行权限：所有用户  
+功能描述：显示网络相关信息  
+语法：netstat 选项  
+1. -t:TCP协议，三次握手，安全可靠，相当于打电话  
+2. -u:UDP协议，快，相当于发短信  
+3. -l:监听  
+4. -r:路由/网关  
+5. -n:显示IP地址和端口号  
+例：  
+netstat -tlun:查看本机监听的端口  
+netstat -an:查看本机所有的网络连接  
+netstat -rn:查看本机路由表  
+### setup  
+命令名称：setup  
+命令所在路径：/usr/bin/setup  
+执行权限：root  
+功能描述：配置网络  
+语法：setup，里边的DHCP自动获取，里边加个星号，配完了，一定重启网络服务，service network restart***永久生效，而不是像ifconfig临时配置***  
+##挂载命令  
+### mount  
+命令名称：mount  
+命令所在路径：/bin/mount  
+执行权限：所有用户  
+功能描述：
+语法：mount [-t 文件系统] 设备文件名（光盘是sr0或者/dev/cdrom) 挂载点  
+	卸载，首先退出挂载点，然后umount 设备文件名
 # 关机重启命令  
 ### shutdown  
 shutdown 选项 时间  
