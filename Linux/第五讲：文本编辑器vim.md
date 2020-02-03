@@ -83,3 +83,7 @@ Vim是一个功能强大的全屏幕文本编辑器，是Linux/UNIX最常用的�
 ### 替换或者说是定义  
 ：ab 表面 本质  
 ：ab qvshen chengguo  只要输入qvshen空格或者回车，她就会自动变为chengguo  
+这个编辑命令是临时的，如果想要永久生效，写在配置文件里，文件名为.vimrc  
+如果是管理员/root/.vimrc  
+普通用户/home/用户名/.vimrc  
+***在配置文件里，ab前不用加冒号***
